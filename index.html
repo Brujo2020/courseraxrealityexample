@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Floating Memory Island (A-Frame)</title>
+
+    <!-- A-Frame -->
+    <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
+  </head>
+
+  <body style="margin:0; overflow:hidden;">
+    <a-scene
+      renderer="colorManagement: true;"
+      background="color: #88ccee"
+    >
+      <!-- ASSETS (optional place for textures/models later) -->
+      <a-assets>
+        <!-- Example if you add assets:
+        <img id="groundTex" src="assets/ground.jpg" />
+        -->
+      </a-assets>
+
+      <!-- LIGHTING -->
+      <a-light type="ambient" intensity="0.55"></a-light>
+      <a-light type="directional" position="2 5 2" intensity="0.9"></a-light>
+
+      <!-- SKY -->
+      <a-sky color="#88ccee"></a-sky>
+
+      <!-- ISLAND BASE -->
+      <a-cylinder
+        id="island"
+        position="0 0 0"
+        radius="2.2"
+        height="0.5"
+        color="#4CAF50"
+        shadow="cast: false; receive: true"
+      ></a-cylinder>
+
+      <!-- LITTLE ROCK UNDER ISLAND (adds depth, still primitive) -->
+      <a-cone
+        position="0 -0.8 0"
+        radius-bottom="1.4"
+        radius-top="0.2"
+        height="1.2"
+        color="#6b6b6b"
+      ></a-cone>
+
+      <!-- TREE TRUNK -->
+      <a-cylinder
+        id="trunk"
+        position="0 1 0"
+        radius="0.18"
+        height="2"
+        color="#8B4513"
+      ></a-cylinder>
+
+      <!-- TREE TOP -->
+      <a-sphere
+        id="leaves"
+        position="0 2.55 0"
+        radius="0.85"
+        color="#2E8B57"
+      ></a-sphere>
+
+      <!-- FLOATING ORB (animated) -->
+      <a-sphere
+        id="orb"
+        position="0 4 0"
+        radius="0.38"
+        color="#FFD700"
+        material="metalness: 0.4; roughness: 0.2; emissive: #ffdd66; emissiveIntensity: 0.25"
+        animation="property: position; to: 0 4.6 0; dir: alternate; loop: true; dur: 2200; easing: easeInOutSine"
+        animation__spin="property: rotation; to: 0 360 0; loop: true; dur: 6000; easing: linear"
+      ></a-sphere>
+
+      <!-- CAMERA RIG -->
+      <!-- You will use ONE camera at a time for screenshots. Comment/uncomment the camera blocks. -->
+
+      <!-- Camera 1: Front view (default) -->
+      <a-entity id="camFront" position="0 1.7 6" rotation="0 0 0">
+        <a-camera wasd-controls-enabled="true" look-controls="true"></a-camera>
+      </a-entity>
+
+      <!-- Camera 2: Side view (uncomment to take screenshot) -->
+      <!--
+      <a-entity id="camSide" position="6 1.7 0" rotation="0 -90 0">
+        <a-camera wasd-controls-enabled="true" look-controls="true"></a-camera>
+      </a-entity>
+      -->
+
+      <!-- Camera 3: Top-down view (uncomment to take screenshot) -->
+      <!--
+      <a-entity id="camTop" position="0 8 0" rotation="-90 0 0">
+        <a-camera wasd-controls-enabled="true" look-controls="true"></a-camera>
+      </a-entity>
+      -->
+
+    </a-scene>
+  </body>
+</html>
