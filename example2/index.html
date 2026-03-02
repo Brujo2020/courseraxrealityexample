@@ -2,27 +2,78 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>Floating Island VR Enhanced</title>
+  <title>Floating Island VR Galaxy</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
 </head>
 
 <body>
-  <a-scene background="color: #87CEEB">
+  <a-scene 
+    background="color: #050816"
+    fog="type: exponential; color: #0a0f25; density: 0.02">
 
-    <!-- Lighting -->
-    <a-light type="ambient" intensity="0.6"></a-light>
-    <a-light type="directional" position="5 10 5" intensity="1"></a-light>
+    <!-- ===================== -->
+    <!-- DARK GALAXY SKY -->
+    <!-- ===================== -->
 
-    <!-- Ground -->
+    <a-sky color="#050816"></a-sky>
+
+    <!-- Ambient cool light -->
+    <a-light type="ambient" intensity="0.35" color="#8899ff"></a-light>
+
+    <!-- Directional moon light -->
+    <a-light type="directional" 
+             position="5 10 5" 
+             intensity="0.9"
+             color="#ffffff">
+    </a-light>
+
+    <!-- ===================== -->
+    <!-- STARFIELD GENERATOR -->
+    <!-- ===================== -->
+
+    <a-entity id="starfield"></a-entity>
+
+    <script>
+      AFRAME.registerComponent('generate-stars', {
+        init: function () {
+          const starCount = 600;
+          for (let i = 0; i < starCount; i++) {
+            const star = document.createElement('a-sphere');
+            star.setAttribute('radius', 0.05);
+            star.setAttribute('color', '#ffffff');
+            star.setAttribute('material', 'emissive: #ffffff; emissiveIntensity: 1');
+            star.setAttribute('position', {
+              x: (Math.random() - 0.5) * 300,
+              y: Math.random() * 200,
+              z: (Math.random() - 0.5) * 300
+            });
+            this.el.appendChild(star);
+          }
+        }
+      });
+
+      document.addEventListener('DOMContentLoaded', () => {
+        document.querySelector('#starfield')
+                .setAttribute('generate-stars', '');
+      });
+    </script>
+
+    <!-- ===================== -->
+    <!-- GROUND -->
+    <!-- ===================== -->
+
     <a-plane 
       rotation="-90 0 0"
       width="40"
       height="40"
-      color="#3d8f3d">
+      color="#1f5f1f">
     </a-plane>
 
-    <!-- Floating Island -->
+    <!-- ===================== -->
+    <!-- FLOATING ISLAND -->
+    <!-- ===================== -->
+
     <a-cylinder
       position="0 1 -5"
       radius="2"
@@ -35,7 +86,7 @@
       radius-bottom="1.5"
       radius-top="0.3"
       height="1.2"
-      color="#777777">
+      color="#555555">
     </a-cone>
 
     <!-- Tree -->
@@ -43,7 +94,7 @@
       position="0 2 -5"
       radius="0.2"
       height="2"
-      color="#8B4513">
+      color="#6b3e26">
     </a-cylinder>
 
     <a-sphere
@@ -57,22 +108,14 @@
       position="1 3 -5"
       radius="0.4"
       color="#FFD700"
+      material="emissive: #ffdd66; emissiveIntensity: 0.4"
       animation="property: position; to: 1 3.5 -5; dir: alternate; loop: true; dur: 1500">
     </a-sphere>
 
-    <!-- ========================= -->
-    <!-- SKY OBJECTS (REAL GLB)   -->
-    <!-- ========================= -->
+    <!-- ===================== -->
+    <!-- SKY OBJECT -->
+    <!-- ===================== -->
 
-    <!-- Damaged Helmet -->
-    <a-entity
-      gltf-model="https://rawcdn.githack.com/KhronosGroup/glTF-Sample-Models/master/2.0/DamagedHelmet/glTF-Binary/DamagedHelmet.glb"
-      position="-8 8 -25"
-      scale="3 3 3"
-      animation="property: rotation; to: 0 360 0; loop: true; dur: 60000">
-    </a-entity>
-
-    <!-- Cesium Man -->
     <a-entity
       gltf-model="https://rawcdn.githack.com/KhronosGroup/glTF-Sample-Models/master/2.0/CesiumMan/glTF-Binary/CesiumMan.glb"
       position="10 6 -30"
@@ -80,23 +123,10 @@
       animation="property: rotation; to: 0 -360 0; loop: true; dur: 50000">
     </a-entity>
 
-    <!-- BoomBox -->
-    <a-entity
-      gltf-model="https://rawcdn.githack.com/KhronosGroup/glTF-Sample-Models/master/2.0/BoomBox/glTF-Binary/BoomBox.glb"
-      position="0 10 -35"
-      scale="20 20 20"
-      animation="property: rotation; to: 0 360 0; loop: true; dur: 80000">
-    </a-entity>
+    <!-- ===================== -->
+    <!-- CAMERA RIG -->
+    <!-- ===================== -->
 
-    <!-- Avocado -->
-    <a-entity
-      gltf-model="https://rawcdn.githack.com/KhronosGroup/glTF-Sample-Models/master/2.0/Avocado/glTF-Binary/Avocado.glb"
-      position="-12 5 -28"
-      scale="30 30 30"
-      animation="property: rotation; to: 0 360 0; loop: true; dur: 70000">
-    </a-entity>
-
-    <!-- Camera Rig -->
     <a-entity position="0 0 5">
       <a-camera position="0 1.6 0">
         <a-cursor></a-cursor>
