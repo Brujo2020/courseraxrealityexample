@@ -2,27 +2,27 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>Floating Island VR</title>
+  <title>Floating Island VR Stable</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- A-Frame -->
   <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
 </head>
 
 <body>
-  <a-scene background="color: #88ccee">
-
-    <!-- Sky -->
-    <a-sky color="#88ccee"></a-sky>
+  <a-scene background="color: #87CEEB">
 
     <!-- Lighting -->
     <a-light type="ambient" intensity="0.6"></a-light>
     <a-light type="directional" position="5 10 5" intensity="1"></a-light>
 
     <!-- Ground -->
-    <a-circle 
+    <a-plane 
       rotation="-90 0 0"
-      radius="15"
+      width="30"
+      height="30"
       color="#3d8f3d">
-    </a-circle>
+    </a-plane>
 
     <!-- Floating Island -->
     <a-cylinder
@@ -54,20 +54,19 @@
       color="#2E8B57">
     </a-sphere>
 
-    <!-- Interactive Orb -->
+    <!-- Interactive Orb (color change on click) -->
     <a-sphere
       id="orb"
       position="1 3 -5"
       radius="0.4"
       color="#FFD700"
-      animation__hover="property: position; to: 1 3.4 -5; dir: alternate; loop: true; dur: 1500"
-      event-set__enter="_event: mouseenter; color: #FF0000"
-      event-set__leave="_event: mouseleave; color: #FFD700">
+      animation="property: position; to: 1 3.5 -5; dir: alternate; loop: true; dur: 1500">
     </a-sphere>
 
     <!-- Camera Rig -->
     <a-entity id="rig" position="0 0 5">
 
+      <!-- Camera -->
       <a-camera position="0 1.6 0">
         <a-cursor></a-cursor>
       </a-camera>
